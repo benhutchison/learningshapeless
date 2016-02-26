@@ -24,8 +24,13 @@ object HLists extends App {
   def eg1_einstein: String :: Int :: Country :: HNil = "Einstein" :: 1879 :: Germany :: HNil
 
   /*Exercise 1: Construct an HList consisting of "Newton", the Int value 1642 and the Country England.
+
     Exercise 2: Replace the type ascription `Any` with the explicit type. This isn't typically necessary in application code,
     inference is preferred, but is a good learning exercise.
+
+    Some options to see the type of `ex_newton` printed out:
+    (a) start the `sbt console`, and enter `:type learnshapeless.HLists.ex_newton`
+    (b) if you are using Intellij, you can focus cursor on the expression and activate TypeInfo command (Ctrl-Shift-P on my Mac)
      */
   def ex_newton: Any = ???
 
