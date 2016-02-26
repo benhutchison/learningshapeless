@@ -1,0 +1,14 @@
+package learnshapeless
+
+object Data {
+
+  sealed trait Country
+  case object Germany extends Country
+  case object Australia extends Country
+  case object England extends Country
+
+  sealed trait Discovery
+  case object TheoryOfRelativity extends Discovery
+  case object Calculus extends Discovery
+
+}
