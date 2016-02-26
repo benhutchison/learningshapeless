@@ -32,25 +32,25 @@ object HLists extends App {
     (a) start the `sbt console`, and enter `:type learnshapeless.HLists.ex_newton`
     (b) if you are using Intellij, you can focus cursor on the expression and activate TypeInfo command (Ctrl-Shift-P on my Mac)
      */
-  def ex_newton: Any = ???
+  def ex_newton = "Newton" :: 1642 :: England :: HNil
 
   import shapeless.syntax.std.tuple._
   def eg_tuple_prepend_append: (String, String, Int, Country, Discovery) =
-    ("Albert" +: eg1_einstein).tupled :+ (TheoryOfRelativity)
+    ("Albert" +: eg1_einstein).tupled :+ TheoryOfRelativity
 
   /* Exercise 3: Prepend the String "Isaac" to `ex_newton` */
-  def ex_prepend = ???
+  def ex_prepend = "Isaac" +: ex_newton
 
   /* Convert `ex_newton` into a tuple */
-  def ex_tuple: (String, Int, Country) = ???
+  def ex_tuple: (String, Int, Country) = ex_newton.tupled
 
   /* Using operations available via `import syntax.std.tuple._`, append `Calculus` to `ex_tuple`  */
-  def ex_tuple_append = ???
+  def ex_tuple_append = ex_tuple :+ Calculus
 
   def eg_from_tuple: HList = eg_tuple_prepend_append.productElements
 
   /* convert ex_tuple_append into an HList */
-  def ex_from_tuple = ???
+  def ex_from_tuple = ex_tuple_append.productElements
 
 
   /* Example: Mapping over an HList. Each type `T` in the list should be handled with an `at[T]` expression.
@@ -67,18 +67,25 @@ object HLists extends App {
 
   /* Apply a Poly1 mapping over `ex_newton` that converts the name to ALLCAPS, and leaves other fields unchanged
    * Return resulting HList */
-  def ex_poly = ???
+  object AllCapsPoly extends DefaultIdentityMapping {
+    implicit def allCaps = at[String](_.map(_.toUpper))
+  }
+  def ex_poly = ex_newton.map(AllCapsPoly)
 
   /* Try writing a Poly1 mapping like `isAustralian` above, that doesn't use a type parameter `C <: Country`. Instead
    * directly define an `at[Country]` clause. Leave other fields unchanged.
    * Apply your new mapping over `ex_newton` and return the result */
-  def ex_poly_country = ???
+  object IsAustralianPoly extends DefaultIdentityMapping {
+    implicit def isAustralia = at[Country](_ == Australia)
+  }
+  def ex_poly_country = ex_newton.map(IsAustralianPoly)
 
   def eg_index: Country = eg1_einstein(2)
 
   /* Extract the 3rd element of `ex_poly_country` using a index.
   Does the result surprise you? Why did it happen this way? */
-  def ex_poly_country_element_3rd = ???
+  def ex_poly_country_element_3rd = ex_poly_country(2)
+  print(ex_poly_country_element_3rd)
 
 
 }
