@@ -80,5 +80,11 @@ object HLists extends App {
   Does the result surprise you? Why did it happen this way? */
   def ex_poly_country_element_3rd = ???
 
+  def eg_mapped_by_index = eg1_einstein.updateAtWith(2)(_ == Australia)
+
+  /* Transform the surname field in `ex_newton` to the first name by looking it up in `Data.scientistsFirstNames`.
+  * Use updateAtWith to identify the field by numeric index rather than y type.
+  * `updateAtWith` returns the old value, and the updated HList in a tuple */
+  def ex_to_firstname_by_index: (String, HList) = ???
 
 }
