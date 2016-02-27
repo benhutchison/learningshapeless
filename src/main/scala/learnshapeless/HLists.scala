@@ -92,6 +92,6 @@ object HLists extends App {
   /* Transform the surname field in `ex_newton` to the first name by looking it up in `Data.scientistsFirstNames`.
   * Use updateAtWith to identify the field by numeric index rather than y type.
   * `updateAtWith` returns the old value, and the updated HList in a tuple */
-  def ex_to_firstname_by_index: (String, HList) = ???
+  def ex_to_firstname_by_index: (String, HList) = ex_newton.updateAtWith(0)(Data.scientistsFirstNames)
 
 }
