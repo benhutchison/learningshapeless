@@ -11,4 +11,9 @@ object Data {
   case object TheoryOfRelativity extends Discovery
   case object Calculus extends Discovery
 
+  val scientistsFirstNames = Map(
+    "Einstein" -> "Albert",
+    "Newton" -> "Isaac"
+  )
+
 }
