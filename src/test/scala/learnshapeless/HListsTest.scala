@@ -24,4 +24,6 @@ class HListsTest extends org.specs2.mutable.Specification with Assert {
   eg {mustEqual(ex_poly_country,  "Newton" :: 1642 :: England :: HNil)}
 
   eg {mustEqual(ex_poly_country_element_3rd,  England)}
+
+  eg {mustEqual(ex_to_firstname_by_index,  ("Newton", "Isaac" :: 1642 :: England :: HNil))}
 }
