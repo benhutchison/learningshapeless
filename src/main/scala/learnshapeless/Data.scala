@@ -2,6 +2,9 @@ package learnshapeless
 
 object Data {
 
+  def australia: Country = Australia
+  def germany: Country = Germany
+
   sealed trait Country
   case object Germany extends Country
   case object Australia extends Country
