@@ -49,15 +49,15 @@ object Coproducts extends App {
   /** create a clue about the identify of a famous scientist, being the birth year `1879` */
   def ex_bornClue = ???
 
-  def eg_allClues = Vector(eg_clueCountry, eg_invalidClue, ex_nameClue, ex_bornClue)
+  def eg_allClues: Vector[Clue] = Vector(eg_clueCountry, eg_invalidClue, ex_nameClue, ex_bornClue)
 
   /* Some basic Coproduct operations */
   def eg_select: Option[Country] = eg_clueCountry.select[Country]
 
-  /* select the name of `countryClue` */
+  /* select the name of `eg_clueCountry` */
   def ex_selectName: Option[Name] = ???
 
-  /* drop two elements of  `countryClue` */
+  /* drop two elements of  `eg_clueCountry` */
   def ex_drop2: Country :+: CNil = ???
 
 
@@ -74,7 +74,7 @@ object Coproducts extends App {
 
   /* Write your own Poly1 that determines if aa clue is "good". "Good" clues uniquely identify a scientist,
    * whereas non-good clues are ambiguous. */
-  def ex_isGoodClue = ???
+  def ex_isGoodClue: Poly1 = ???
 
   /* Use ex_isGoodClue to filter down `eg_allClues` to just the "good" ones */
   def ex_goodClues = ???
