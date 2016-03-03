@@ -1,5 +1,6 @@
 package learnshapeless
 
+import learningshapeless.macros.ShouldCompileAndEvalTrue
 import learnshapeless.Data._
 import shapeless._
 
@@ -15,8 +16,7 @@ class CoproductsTest extends org.specs2.mutable.Specification with Assert {
 
   eg {mustEqual(ex_drop2, Coproduct[Country :+: CNil](australia))}
 
-  eg {mustEqual(Vector(true, false, true, false),
-    shouldCompile("""eg_allClues.map(_.map(ex_isGoodClue))"""))}
+  eg {ShouldCompileAndEvalTrue("""mustEqual(Vector(true, false, true, false), eg_allClues.map(_.map(ex_isGoodClue)))""")}
 
   eg {mustEqual(Vector(true, false, true, false), ex_goodClues)}
 
