@@ -20,11 +20,11 @@ object Coproducts extends App {
 
   type Name = String @@ NameTag
   trait NameTag
-  def name(n: String) = tag[NameTag](n)
+  def name(n: String) = tag2(n).@@[NameTag]
 
   type Born = Int @@ BornTag
   trait BornTag
-  def born(yearAD: Int) = tag[BornTag](yearAD)
+  def born(yearAD: Int) = tag2(yearAD).@@[BornTag]
 
 
   def eg_florey = name("Florey") :: born(1898) :: australia :: HNil
