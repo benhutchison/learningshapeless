@@ -26,7 +26,9 @@ object TaggedTypes {
   trait IdTag
   type Id = String @@ IdTag
 
-  def eg_id = tag[IdTag]("KAT513436")
+  //The `tag` operator provided by Shapeless doesn't work when the target def has an explicit type declared
+  illTyped("""def eg_id1: Id = tag2[IdTag]("KAT513436")""")
+  def eg_id: Id = tag2("KAT513436").@@[IdTag]
 
   trait NameTag
   type Name = String @@ NameTag
@@ -35,12 +37,14 @@ object TaggedTypes {
 
   def eg_stillAString: String = ex_name
 
-  /** Create 2 new type tags for Age and NumberChildren and tag `56` and `2` respectively */
-  type Age = Nothing
-  def ex_age = ???
+  /** Create 2 new type tags for Age and NumberChildren and tag2 `56` and `2` respectively */
+  trait AgeTag
+  type Age = Int @@ AgeTag
+  def ex_age: Age = ???
 
-  type NumChildren = Nothing
-  def ex_numberChildren = ???
+  trait NumChildrenTag
+  type NumChildren = Int @@ NumChildrenTag
+  def ex_numberChildren: NumChildren = ???
 
   case class EgTypedPerson(id: Id, name: Name, age: Age, numChildren: NumChildren)
 
