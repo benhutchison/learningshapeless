@@ -9,4 +9,6 @@ class TaggedTypesTest extends org.specs2.mutable.Specification with Assert {
 
   eg {mustEqual(ex_name, shapeless.tag[NameTag]("Katherine"))}
 
+  eg {mustEqual(ex_name, shapeless.tag[NameTag]("Katherine"))}
+
 }
