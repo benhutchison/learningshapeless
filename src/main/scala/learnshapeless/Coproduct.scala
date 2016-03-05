@@ -74,7 +74,7 @@ object Coproducts extends App {
 
   /* Write your own Poly1 that determines if aa clue is "good". "Good" clues uniquely identify a scientist,
    * whereas non-good clues are ambiguous. */
-  def ex_isGoodClue: Poly1 = ???
+  def ex_isGoodClue = ???
 
   /* Use ex_isGoodClue to filter down `eg_allClues` to just the "good" ones */
   def ex_goodClues = ???
