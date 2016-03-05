@@ -14,9 +14,7 @@ class CoproductsTest extends org.specs2.mutable.Specification with Assert {
 
   eg {mustEqual(ex_selectName, Option.empty[Name])}
 
-  eg {mustEqual(ex_drop2, Coproduct[Country :+: CNil](australia))}
-
-  eg {ShouldCompileAndEvalTrue("""mustEqual(Vector(true, false, true, false), eg_allClues.map(_.map(ex_isGoodClue)))""")}
+  eg {mustEqual(ex_drop2, Some(Coproduct[Country :+: CNil](australia)))}
 
   eg {mustEqual(Vector(true, false, true, false), ex_goodClues)}
 
