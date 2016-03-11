@@ -15,5 +15,3 @@ lazy val main = Project("ShapelessExercises", file("."))
 lazy val macroSub = Project("macro", file("macro")) settings(
   libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-compiler" % _)
 )
-
-
