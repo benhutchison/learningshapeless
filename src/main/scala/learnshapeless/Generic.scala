@@ -35,11 +35,11 @@ object GenericRepresentation extends App {
    3. Uncomment and complete the assertion by filling the expected `head` value **/
   def eg_asset = Asset("2012 Toyota Camry", BigDecimal(19500.0), "MOT2", false)
 
-  def ex_genAsset = ???
+  def ex_genAsset = Generic[Asset]
 
-  def ex_genericAsset = ???
+  def ex_genericAsset = ex_genAsset.to(eg_asset)
 
-  //assertEquals(???, ex_genericAsset.head)
+  assertEquals("2012 Toyota Camry", ex_genericAsset.head)
 
   /** Coproduct exercise:
     * 1. Assign a Generic typeclass for State to `ex_genState`.
@@ -51,7 +51,7 @@ object GenericRepresentation extends App {
 
   def ex_genericState: Queensland.type :+: Victoria.type :+: CNil  = ex_genState.to(eg_state)
 
-  //assertEquals(None, ex_genericState.head)
+  assertEquals(None, ex_genericState.head)
 
 
 }
