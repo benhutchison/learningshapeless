@@ -10,6 +10,11 @@ object Data {
   case object Australia extends Country
   case object England extends Country
 
+
+  sealed trait State
+  case object Victoria extends State
+  case object Queensland extends State
+
   sealed trait Discovery
   case object TheoryOfRelativity extends Discovery
   case object Calculus extends Discovery

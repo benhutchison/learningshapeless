@@ -5,7 +5,7 @@ import test.illTyped
 
 object LazyDemo extends App {
 
-  val l: List[Int] = Cons(1, Nil)
+  val l: MyList[Int] = Cons(1, Nil)
 
   import Show._
 
@@ -22,7 +22,7 @@ object LazyDemo extends App {
   /** 2. Does the error happen when required implicits are manually/explicitly provided?
     * Make a prediction, then uncomment below and find out.
     * can you explain why/why not? */
-  //show(l)(showList(showCons(showInt, showList)))
+  //show(l)(showMyList(showCons(showInt, showMyList)))
 
   /** 3. Fix it using typeclass Lazy[T]. Replace showCons with `showCons2` and study the differences.
     * Apply the same changes anywhere else you think are needed, so that `show(l)` compiles and works
@@ -30,9 +30,9 @@ object LazyDemo extends App {
 
 }
 
-sealed trait List[+T]
-case class Cons[T](hd: T, tl: List[T]) extends List[T]
-sealed trait Nil extends List[Nothing]
+sealed trait MyList[+T]
+case class Cons[T](hd: T, tl: MyList[T]) extends MyList[T]
+sealed trait Nil extends MyList[Nothing]
 case object Nil extends Nil
 
 trait Show[T] {
@@ -53,18 +53,18 @@ object Show {
     def apply(t: Nil) = "Nil"
   }
 
-  // Case for Cons[T]: note (mutually) recursive implicit argument referencing Show[List[T]]
-  implicit def showCons[T](implicit st: Show[T], sl: Show[List[T]]): Show[Cons[T]] = new Show[Cons[T]] {
+  // Case for Cons[T]: note (mutually) recursive implicit argument referencing Show[MyList[T]]
+  implicit def showCons[T](implicit st: Show[T], sl: Show[MyList[T]]): Show[Cons[T]] = new Show[Cons[T]] {
     def apply(t: Cons[T]) = s"Cons(${show(t.hd)(st)}, ${show(t.tl)(sl)})"
   }
 
-//  implicit def showCons2[T](implicit st: Show[T], sl: Lazy[Show[List[T]]]): Show[Cons[T]] = new Show[Cons[T]] {
+//  implicit def showCons2[T](implicit st: Show[T], sl: Lazy[Show[MyList[T]]]): Show[Cons[T]] = new Show[Cons[T]] {
 //    def apply(t: Cons[T]) = s"Cons(${show(t.hd)(st)}, ${show(t.tl)(sl.value)})"
 //  }
 
-  // Case for List[T]: note (mutually) recursive implicit argument referencing Show[Cons[T]]
-  implicit def showList[T](implicit sc: Show[Cons[T]]): Show[List[T]] = new Show[List[T]] {
-    def apply(t: List[T]) = t match {
+  // Case for MyList[T]: note (mutually) recursive implicit argument referencing Show[Cons[T]]
+  implicit def showMyList[T](implicit sc: Show[Cons[T]]): Show[MyList[T]] = new Show[MyList[T]] {
+    def apply(t: MyList[T]) = t match {
       case n: Nil => show(n)
       case c: Cons[T] => show(c)(sc)
     }
