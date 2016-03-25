@@ -7,6 +7,7 @@ lazy val main = Project("ShapelessExercises", file("."))
     libraryDependencies ++= Seq(
       "com.chuusai" %% "shapeless" % "2.3.0-RC4",
       "org.scala-lang" % "scala-reflect" % "2.11.7",
+      "io.spray" %%  "spray-json" % "1.3.2",
       "org.specs2" %% "specs2-core" % "3.7" % "test"
     ),
     scalacOptions in Test ++= Seq("-Yrangepos")
