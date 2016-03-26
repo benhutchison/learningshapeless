@@ -13,11 +13,19 @@ package learnshapeless
   * Which serves witness to the genericness of the Shapeless transformation
   */
 
+import Data._
+
 import shapeless._
-import shapeless.labelled.FieldType
-import spray.json.{JsonFormat, JsValue}
+import labelled._
+import syntax.singleton._
+
+import spray.json._
 
 object JsonSerialization extends App {
+
+  implicit val s: JsonFormat[String] = ???
+  implicit val i: JsonFormat[Int] = ???
+  implicit val c: JsonFormat[Country] = ???
 
   /** JsonFormat[T] is a serializer/deserializer for T, providing:
     * read(json: JsValue): T
@@ -30,11 +38,13 @@ object JsonSerialization extends App {
 
   implicit val ex_formatHNil: JsonFormat[HNil] = ???
 
+  /** Exercise: finish this JsonFormat for an HList, defined in terms of an implicit Key (ie label) witness, a JsonFormat
+    * for the head value, and a JsonFormat for the tail of the list.*/
   implicit def ex_formatHList[Key <: Symbol, Value, Tail <: HList](
     implicit
     key: Witness.Aux[Key],
-    formatValue: JsonFormat[Value],
-    formatTail: JsonFormat[Tail]
+    formatValue: Lazy[JsonFormat[Value]],
+    formatTail: Lazy[JsonFormat[Tail]]
   ): JsonFormat[FieldType[Key, Value] :: Tail] = new JsonFormat[FieldType[Key, Value] :: Tail] {
 
     def write(hlist: FieldType[Key, Value] :: Tail): JsValue = ???
@@ -43,7 +53,89 @@ object JsonSerialization extends App {
       ???
     }
 
+  }
+
+  /** Check it works */
+
+  def eg_einsteinHlist = ('name ->> "Einstein") :: ('born ->> 1879)  :: HNil
+
+  eg_einsteinHlist.toJson
+
+
+  /** Next, we'll integrate the HList serializer with LabelledGeneric, to build a serializer over case-classes. (Well,
+    * a subset of case-classes until we support Coproducts below since class hierarchies wont be supported.)
+    *
+    * The idea will be to build a JsonFormat[T], based on an implicit LabelledGeneric[T] and JsonFormat[Repr],
+    * where the output type `Repr` of LabelledGeneric guides the selection of the JsonFormat implicit.
+    * */
+  implicit def familyFormat[T, Repr](
+    implicit
+    gen: LabelledGeneric.Aux[T, Repr],
+    formatGen: JsonFormat[Repr]
+  ): JsonFormat[T] = new JsonFormat[T] {
+
+    def read(json: JsValue): T = ???
+
+    def write(t: T): JsValue = ???
 
   }
+
+  /** This should compile and print json */
+  case class ScientistShort(name: String, born: Int)
+  val eg_einsteinShort = ScientistShort("Einstein", 1879)
+  println(eg_einsteinShort.toJson)
+
+  /** Since class hierarchies are represented as Coproducts we next need to define a JsonFormat for them
+    *
+    * Start with CNil, the empty coproduct.
+    *
+    * Strangely, this implicit is needed to complete the compile-time recursion, but will never actually
+    * be used at runtime, since once of the other elements of the coproduct will always have matched first.
+    * Therefore, the implementations can remain ???
+    * */
+  implicit val eg_formatCNil = new JsonFormat[CNil] {
+      def read(json: JsValue): CNil = ???
+      def write(t: CNil): JsValue = ???
+  }
+
+  /** Like HLists, we need a recursively defined format that tests each labelled head value in turn,
+    * or else delegates to the format for the tail.
+    *
+    * But there's a difference. Coproducts model a value that may be one of several possible types, so there's uncertainty
+    * in the static type. To serialize such a value, we'll need to include a special discriminator field into the json
+    * indicating which of the potential options it actually is. To deserialize it, we'll need to read the discriminator
+    * value, and test whether it is the same as the current Head we are processing.
+    *
+    * I follow fommils precendent of name the discriminator field "type". Since its a reserved word in Scala,
+    * collision chances are reduced. */
+
+  implicit def ex_formatCoproduct[Key <: Symbol, Value, Tail <: Coproduct](
+    implicit
+    key: Witness.Aux[Key],
+    formatValue: Lazy[JsonFormat[Value]],
+    formatTail: Lazy[JsonFormat[Tail]]
+  ): JsonFormat[FieldType[Key, Value] :+: Tail] = new JsonFormat[FieldType[Key, Value] :+: Tail] {
+
+    def write(coproduct: FieldType[Key, Value] :+: Tail): JsValue = coproduct match {
+      case _ => ???
+    }
+
+    def read(json: JsValue): FieldType[Key, Value] :+: Tail = {
+      if (???) //test if discriminator field matches current name
+        //match - deserialize and return the value
+        ???
+      else
+        //test the next coproduct option
+        ???
+    }
+
+  }
+
+  /** Test serialisation & deserialisation including class hierarchies */
+  case class Scientist(name: String, born: Int, country: Country)
+  val eg_einstein2 = Scientist("Einstein", 1879, Germany)
+  println(eg_einstein2.toJson)
+
+  assertEquals(eg_einstein2, eg_einstein2.toJson.convertTo[Scientist])
 
 }
