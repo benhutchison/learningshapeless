@@ -23,9 +23,20 @@ import spray.json._
 
 object JsonSerialization extends App {
 
-  implicit val s: JsonFormat[String] = ???
-  implicit val i: JsonFormat[Int] = ???
-  implicit val c: JsonFormat[Country] = ???
+  implicit val s: JsonFormat[String] = new JsonFormat[String] {
+    def write(s: String): JsValue = new JsString(s)
+    def read(json: JsValue) = json match {
+      case JsString(s) => s
+      case other => throw new RuntimeException(s"Expecting string, found $other")
+    }
+  }
+  implicit val i: JsonFormat[Int] = new JsonFormat[Int] {
+    def write(n: Int): JsValue = new JsNumber(n)
+    def read(json: JsValue) = json match {
+      case JsNumber(n) => n.toInt
+      case other => throw new RuntimeException(s"Expecting Int, found $other")
+    }
+  }
 
   /** JsonFormat[T] is a serializer/deserializer for T, providing:
     * read(json: JsValue): T
@@ -71,7 +82,7 @@ object JsonSerialization extends App {
   implicit def familyFormat[T, Repr](
     implicit
     gen: LabelledGeneric.Aux[T, Repr],
-    formatGen: JsonFormat[Repr]
+    formatGen: Lazy[JsonFormat[Repr]]
   ): JsonFormat[T] = new JsonFormat[T] {
 
     def read(json: JsValue): T = ???
@@ -134,6 +145,9 @@ object JsonSerialization extends App {
   /** Test serialisation & deserialisation including class hierarchies */
   case class Scientist(name: String, born: Int, country: Country)
   val eg_einstein2 = Scientist("Einstein", 1879, Germany)
+
+  implicit val genScientist = LabelledGeneric[Scientist]
+
   println(eg_einstein2.toJson)
 
   assertEquals(eg_einstein2, eg_einstein2.toJson.convertTo[Scientist])
