@@ -58,10 +58,17 @@ object JsonSerialization extends App {
     formatTail: Lazy[JsonFormat[Tail]]
   ): JsonFormat[FieldType[Key, Value] :: Tail] = new JsonFormat[FieldType[Key, Value] :: Tail] {
 
-    def write(hlist: FieldType[Key, Value] :: Tail): JsValue = ???
+    def write(hlist: FieldType[Key, Value] :: Tail): JsValue = {
+      val tailFields = formatTail.value.write(hlist.tail).asJsObject.fields
+      val headField = key.value.name -> formatValue.value.write(hlist.head)
+      JsObject(tailFields + headField)
+    }
 
     def read(json: JsValue): FieldType[Key, Value] :: Tail = {
-      ???
+      val fields = json.asJsObject.fields
+      val head = formatValue.value.read(fields(key.value.name))
+      val tail = formatTail.value.read(json)
+      field[Key](head) :: tail
     }
 
   }
@@ -132,12 +139,12 @@ object JsonSerialization extends App {
     }
 
     def read(json: JsValue): FieldType[Key, Value] :+: Tail = {
-      if (???) //test if discriminator field matches current name
+      if (json.asJsObject.fields("type") == JsString(key.value.name )) //test if discriminator field matches current name
         //match - deserialize and return the value
-        ???
+        Inl(field[Key](formatValue.value.read(json)))
       else
         //test the next coproduct option
-        ???
+        Inr(formatTail.value.read(json))
     }
 
   }
