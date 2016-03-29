@@ -25,7 +25,7 @@ object HLists extends App {
 
   /*Exercise 1: Construct an HList consisting of "Newton", the Int value 1642 and the Country England.
 
-    Exercise 2: Replace the type ascription `Any` with the explicit type. This isn't typically necessary in application code,
+    Exercise 2: Give it an the explicit type. This isn't typically necessary in application code,
     inference is preferred, but is a good learning exercise.
 
     Some options to see the type of `ex_newton` printed out:
@@ -83,7 +83,11 @@ object HLists extends App {
   def eg_index: Country = eg1_einstein(2)
 
   /* Extract the 3rd element of `ex_poly_country` using a index.
-  Does the result surprise you? Why did it happen this way? */
+  Does the result surprise you? Why did it happen this way?
+
+  A: The 3rd element is the country England, not 'false'. So the Country element hasnt been mapped.
+  The reason is that the at[Country] case in `IsAustralianPoly` matches type Country exactly,
+  but not subtypes like England. */
   def ex_poly_country_element_3rd = ex_poly_country(2)
   print(ex_poly_country_element_3rd)
 
