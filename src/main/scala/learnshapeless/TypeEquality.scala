@@ -8,8 +8,6 @@ import shapeless.test.illTyped
   *
   * Exercises beginning with `ex` are for you to complete. Each exercise has a comment above describing the task.
   *
-  * You can verify whether your exercise solution is correct by running the Part1HListTest in src/test/scala.
-  *
   * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
   *
   * */
@@ -37,17 +35,17 @@ object TypeEquality {
   def eg_IntIntAreEqual = implicitly[Int =:= Int]
   def eg_IntStringNotEqual = illTyped("""implicitly[Int =:= String]""")
 
-  def ex_assertHaveEqualTypes[A, B](a: A, b: B): Unit = ???
+  def ex_assertHaveEqualTypes[A, B](a: A, b: B)(implicit ev: A =:= B): Unit = ()
 
   //illTyped is your friend
-  def ex_assertHaveNonEqualTypes[A, B](a: A, b: B): Unit = ???
+  def ex_assertHaveNonEqualTypes[A, B](a: A, b: B): Unit =  illTyped("""ex_assertHaveEqualTypes(a, b)""")
 
   val eg_n1 = 5
   val eg_n2 = -42
   val eg_n3: Any = eg_n2
 
-  def ex_assert_n1n2_equal = ???
-  def ex_assert_n1n2_nonEqual = ???
+  def ex_assert_n1n2_equal = ex_assertHaveEqualTypes(eg_n1, eg_n2)
+  def ex_assert_n1n3_nonEqual = ex_assertHaveNonEqualTypes(eg_n1, eg_n3)
 
 
   /**  <:<  Conforms   */
@@ -63,18 +61,18 @@ object TypeEquality {
   /** use cases examples from the standard library */
 
   def eg_optionOfOptionInt = Option(Option(42))
-  def ex_flatten: Option[Int] = ???
+  def ex_flatten: Option[Int] = eg_optionOfOptionInt.flatten
 
   def eg_optionOfInt = Option(42)
   /* show that `eg_optionOfInt.flatten` wont compile using the `illTyped` macro */
-  def ex_flatten2 = ???
+  def ex_flatten2 = illTyped("""eg_optionOfInt.flatten""")
 
   def eg_SomePairs = Vector((1, "one"),  (2, "two"))
   /** use the toMap method to turn eg_SomePairs into Map */
-  def ex_toMap = ???
+  def ex_toMap = eg_SomePairs.toMap
 
   def eg_SomeInts = Vector(1, 2)
   /* show that eg_SomeInts.toMap wont compile using the illTyped macro */
-  def ex_toMap2 = ???
+  def ex_toMap2 = illTyped("""eg_SomeInts.toMap""")
 
 }

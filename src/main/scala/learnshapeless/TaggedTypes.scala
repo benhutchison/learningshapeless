@@ -10,8 +10,6 @@ import shapeless.test.illTyped
   *
   * Exercises beginning with `ex` are for you to complete. Each exercise has a comment above describing the task.
   *
-  * You can verify whether your exercise solution is correct by running the Part1HListTest in src/test/scala.
-  *
   * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
   *
   * */
