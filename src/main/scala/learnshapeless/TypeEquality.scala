@@ -37,15 +37,18 @@ object TypeEquality {
   def eg_IntIntAreEqual = implicitly[Int =:= Int]
   def eg_IntStringNotEqual = illTyped("""implicitly[Int =:= String]""")
 
+  /** Exercise: extend this method to accept a =:= parameter so that call to it wont compile unless the param types are equal.*/
   def ex_assertHaveEqualTypes[A, B](a: A, b: B): Unit = ???
 
-  //illTyped is your friend
+  /** Exercise: calls to this method this shouldn't compile if the types are equal */
+  //hint: illTyped is your friend
   def ex_assertHaveNonEqualTypes[A, B](a: A, b: B): Unit = ???
 
   val eg_n1 = 5
   val eg_n2 = -42
   val eg_n3: Any = eg_n2
 
+  /** Exercise: use the methods you created above on some test values */
   def ex_assert_n1n2_equal = ???
   def ex_assert_n1n2_nonEqual = ???
 
@@ -63,6 +66,7 @@ object TypeEquality {
   /** use cases examples from the standard library */
 
   def eg_optionOfOptionInt = Option(Option(42))
+  /** Try out the standard libraru flatten method. Not how it uses a <:< parameter */
   def ex_flatten: Option[Int] = ???
 
   def eg_optionOfInt = Option(42)
@@ -70,7 +74,7 @@ object TypeEquality {
   def ex_flatten2 = ???
 
   def eg_SomePairs = Vector((1, "one"),  (2, "two"))
-  /** use the toMap method to turn eg_SomePairs into Map */
+  /** Exercise: use the toMap method to turn eg_SomePairs into Map. Note the role of <:< */
   def ex_toMap = ???
 
   def eg_SomeInts = Vector(1, 2)
