@@ -38,3 +38,8 @@ Take an experimental approach to exercises. All of them are runnable objects, so
 
 - [Induction](./src/main/scala/learnshapeless/Induction.scala)
 - [A complete use-case: Json Serialization](./src/main/scala/learnshapeless/JsonSerialization.scala)
+
+## Known Issues
+
+@ssanj pointed out that Shapeless `illTyped()` macro doesn't always work correctly in the REPL, ie anything you define inside of the REPL is not seen by illTyped ([stack overflow](http://stackoverflow.com/questions/20114298/how-do-i-write-a-scala-unit-test-that-ensures-compliation-fails#comment30067810_20169497))
+
