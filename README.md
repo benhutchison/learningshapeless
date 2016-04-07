@@ -3,6 +3,8 @@
 This repo contains a collections of [exercises](./src/main/scala) designed to help you learn the 
 [Shapeless library](https://github.com/milessabin/shapeless) and Type-level programming. 
 
+[Introductory slides](./slides/index.html).
+
 On the `master` branch, there are a mix of annotated *code examples* (generally names `eg_<something>`) and *exercises*. 
 Study the examples before trying the exercises, they demonstrate  features of Shapeless and relevant techniques.
  Code exercises are often named `ex_<something>`, but some exercises are described within inline docs, and may involve 
