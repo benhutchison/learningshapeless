@@ -13,7 +13,7 @@ import shapeless.test.illTyped
   * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
   *
   * */
-object TaggedTypes {
+object TaggedTypes extends App {
 
   case class EgWeaklyTypedPerson(id: String, name: String, age: Int, numberChildren: Int)
 
