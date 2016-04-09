@@ -8,11 +8,12 @@ package object learnshapeless {
 
   def assertHaveEqualTypes[A, B](a: A, b: B)(implicit ev: A =:= B): Unit = ()
 
-  def assertHaveNonEqualTypes[A, B](a: A, b: B): Unit = illTyped("""assertHaveEqualTypes(a, b)""")
-
 
   def assertConformsToTypeOf[A, B](subtype: A, supertype: B)(implicit ev: A <:< B): Unit = ()
 
+  //The `tag` operator provided by Shapeless doesn't work when the tagged value is assigned onto an explicit typed val or def.
+  //https://github.com/milessabin/shapeless/issues/557
+  //for this reason, Im using a variant syntax but the final effect is the same
   object tag2 {
     def apply[T](t: T) = new TaggedValue[T](t)
 

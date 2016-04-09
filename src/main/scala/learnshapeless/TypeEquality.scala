@@ -2,18 +2,7 @@ package learnshapeless
 
 import shapeless.test.illTyped
 
-/** General Guidelines
-  *
-  * Definitons named `eg` are examples to learn from. Examples are numbered by the exercises they related to or inform.
-  *
-  * Exercises beginning with `ex` are for you to complete. Each exercise has a comment above describing the task.
-  *
-  * You can verify whether your exercise solution is correct by running the Part1HListTest in src/test/scala.
-  *
-  * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
-  *
-  * */
-object TypeEquality {
+object TypeEquality extends App {
 
   /** A useful Shapeless utility is the illTyped("""<expression>""") macro, which fails at compile time
     * if `<expression>` compiles/type-checks, but succeeds otherwise.
@@ -30,6 +19,8 @@ object TypeEquality {
     *
     * `=:=` is used for proving that 2 values have the same static type
     * `<:<` is used for proving that a value conforms to (ie is subtype of) a type
+    *
+    * These come from the standard library, not Shapeless
     */
 
   /** =:= Equals */
@@ -37,20 +28,17 @@ object TypeEquality {
   def eg_IntIntAreEqual = implicitly[Int =:= Int]
   def eg_IntStringNotEqual = illTyped("""implicitly[Int =:= String]""")
 
-  /** Exercise: extend this method to accept a =:= parameter so that call to it wont compile unless the param types are equal.*/
+  /** Exercise: extend this method to accept a =:= implicit parameter so that call to it wont compile unless the param types are equal.*/
   def ex_assertHaveEqualTypes[A, B](a: A, b: B): Unit = ???
-
-  /** Exercise: calls to this method this shouldn't compile if the types are equal */
-  //hint: illTyped is your friend
-  def ex_assertHaveNonEqualTypes[A, B](a: A, b: B): Unit = ???
 
   val eg_n1 = 5
   val eg_n2 = -42
   val eg_n3: Any = eg_n2
 
-  /** Exercise: use the methods you created above on some test values */
+  /** Exercise: use the methods you created above on some test values.
+    * Remeber you can use illTyped to wrap an expression that ought not to compile */
   def ex_assert_n1n2_equal = ???
-  def ex_assert_n1n2_nonEqual = ???
+  def ex_assert_n1n2_equal_wontCompile = ???
 
 
   /**  <:<  Conforms   */
