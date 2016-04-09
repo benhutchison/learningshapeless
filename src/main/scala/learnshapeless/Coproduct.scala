@@ -5,14 +5,14 @@ import shapeless.tag.@@
 
 import Data._
 
-/** General Guidelines
+/** Coproducts represent a single value that may be one of several possible types. They are "cousins" of HLists,
+  * but with an OR operation applied between element types, rather than an AND. But unlike HLists, coproducts only
+  * contain one value, but model uncertainty about what its exact type is.
   *
-  * Definitons named `eg` are examples to learn from. Examples are numbered by the exercises they related to or inform.
+  * The Either[A, B] type in the Scala standard lib is analogous to a 2-type Coproduct.
   *
-  * Exercises beginning with `ex` are for you to complete. Each exercise has a comment above describing the task.
-  *
-  *
-  * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
+  * One key Coproducts use for in Shapeless to represent one concrete subtype of a closed inheritance hierarchy, where the possible
+  * subtype options are enumerated in the coproduct type..
   *
   * */
 object Coproducts extends App {
