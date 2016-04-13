@@ -45,6 +45,9 @@ object HLists extends App {
 
   /** Shapeless makes the link between tuples and HLists clear by offering all HList methods over tuples with the import below*/
   import shapeless.syntax.std.tuple._
+
+  def eg_einstein_tuple: (String, Int, Country) = eg1_einstein.tupled
+
   /* Convert `ex_newton` into a tuple */
   def ex_tuple: (String, Int, Country) = ???
   println(s"ex_tuple $ex_tuple")
