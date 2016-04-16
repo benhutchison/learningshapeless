@@ -40,7 +40,7 @@ object LabelsAndRecords extends App {
   println(s"Type of eg_labelledInt: ${test.showType(eg_symbolLabelledInt)}")
 
 
-  /** Special string indexed accessors are enabled when labelled values are collected in an HList */
+  /** Special type-indexed accessors are enabled when labelled values are collected in an HList */
   def eg_randomStuff =
     eg_symbolLabelledInt ::
       ('moonLanding  ->> LocalDate.of(1969, Month.JULY, 20)) ::
@@ -85,7 +85,9 @@ object LabelsAndRecords extends App {
   def ex_genericEinstein = eg_scientistGen.to(eg_einstein)
   println(s"ex_genericEinstein: $ex_genericEinstein")
 
-  /** Oops, that birth year is wrong. Fix it using +(KV) to update ex_genericEinstein with the correct value 1879*/
+  /** Oops, that birth year is wrong. Fix it using +(KV) to update ex_genericEinstein with the correct value 1879.
+    *
+    * Note Shapeless uses Symbols, not Strings, to label case class fields in LabelledGeneric form. */
   def ex_fixError = ex_genericEinstein.updated('yearBorn, 1879)
 
   /** Use from the convert back from generic representation to case class */
