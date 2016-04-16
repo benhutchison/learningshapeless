@@ -136,13 +136,17 @@ object JsonSerialization extends App {
       //Inr() node in a Coproduct hold the actual value of the Coproduct
       //You need to write out a type descriptor field as well as the json representing the coproduct value
       //The type descriptor field should be called "type" and contain the name of `key`, the label of the current field.
+
+      //Hint: it seems slightly awkward to merge an extra fields into a spray-json JsObject.
+      //One solution is to pattern match on the Map[String, JsValue] inside, merge with the map, then convert back to JsObject, eg
+      //val JsObject(fields) = <a JsObject>; JsObject(fields + (k -> v))
+
       case Inl(found) =>
-        val JsObject(fields) = formatValue.value.write(found).asJsObject
-        JsObject(fields + ("type" -> JsString(key.value.name)))
+        ???
 
       //Inr(tail) nodes represent the empty case, a type which the runtime value *isnt*. Continue onto the tail and write it out
       case Inr(tail) =>
-        formatTail.value.write(tail)
+        ???
     }
 
     def read(json: JsValue): FieldType[Key, Value] :+: Tail = {
