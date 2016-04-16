@@ -80,7 +80,7 @@ class Induction {
 
   object MyTake {
 
-    def take[L <: HList, N <: Nat](l: L, n: Nat)(implicit myTake: MyTake[L, N]): myTake.Out = myTake(l)
+    def take[L <: HList, N <: Nat](l: L, n: Nat)(implicit myTake: MyTake[L, n.N]): myTake.Out = myTake(l)
 
     type Aux = Nothing
 
