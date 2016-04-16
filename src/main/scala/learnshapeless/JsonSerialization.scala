@@ -47,7 +47,12 @@ object JsonSerialization extends App {
     * Since any case class can be represented by HLists and Coproducts, by recursive transforming a data graph, we can
     * serialize an abitrary strucutre into JSON */
 
-  implicit val ex_formatHNil: JsonFormat[HNil] = ???
+  implicit val ex_formatHNil: JsonFormat[HNil] = new JsonFormat[HNil] {
+
+    def write(obj: HNil): JsValue = JsObject.empty
+
+    def read(json: JsValue): HNil = HNil
+  }
 
   /** Exercise: finish this JsonFormat for an HList, defined in terms of an implicit Key (ie label) witness, a JsonFormat
     * for the head value, and a JsonFormat for the tail of the list.*/
@@ -92,9 +97,9 @@ object JsonSerialization extends App {
     formatGen: Lazy[JsonFormat[Repr]]
   ): JsonFormat[T] = new JsonFormat[T] {
 
-    def read(json: JsValue): T = ???
+    def read(json: JsValue): T = gen.from(formatGen.value.read(json))
 
-    def write(t: T): JsValue = ???
+    def write(t: T): JsValue = formatGen.value.write(gen.to(t))
 
   }
 
@@ -124,7 +129,7 @@ object JsonSerialization extends App {
     * indicating which of the potential options it actually is. To deserialize it, we'll need to read the discriminator
     * value, and test whether it is the same as the current Head we are processing.
     *
-    * I follow fommils precendent of name the discriminator field "type". Since its a reserved word in Scala,
+    * I follow fommils precedent of name the discriminator field "type". Since its a reserved word in Scala,
     * collision chances are reduced. */
 
   implicit def ex_formatCoproduct[Key <: Symbol, Value, Tail <: Coproduct](
@@ -135,7 +140,16 @@ object JsonSerialization extends App {
   ): JsonFormat[FieldType[Key, Value] :+: Tail] = new JsonFormat[FieldType[Key, Value] :+: Tail] {
 
     def write(coproduct: FieldType[Key, Value] :+: Tail): JsValue = coproduct match {
-      case _ => ???
+      //Inr() node in a Coproduct hold the actual value of the Coproduct
+      //You need to write out a type descriptor field as well as the json representing the coproduct value
+      //The type descriptor field should be called "type" and contain the name of `key`, the label of the current field.
+      case Inl(found) =>
+        val JsObject(fields) = formatValue.value.write(found).asJsObject
+        JsObject(fields + ("type" -> JsString(key.value.name)))
+
+      //Inr(tail) nodes represent the empty case, a type which the runtime value *isnt*. Continue onto the tail and write it out
+      case Inr(tail) =>
+        formatTail.value.write(tail)
     }
 
     def read(json: JsValue): FieldType[Key, Value] :+: Tail = {
@@ -157,6 +171,7 @@ object JsonSerialization extends App {
 
   println(eg_einstein2.toJson)
 
+  //test round trip
   assertEquals(eg_einstein2, eg_einstein2.toJson.convertTo[Scientist])
 
 }
