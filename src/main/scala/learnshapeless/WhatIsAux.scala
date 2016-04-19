@@ -1,7 +1,6 @@
 package learnshapeless
 
 import shapeless._
-import shapeless.test.illTyped
 
 object WhatIsAux extends App {
 
@@ -38,6 +37,7 @@ object WhatIsAux extends App {
 
   /** Apply `headGen` to `eg_people` */
   def ex_head = headGen(eg_people)
+  println(s"ex_head: $ex_head")
 
 
   /** Enables Ordering over an HList if the element types have an Ordering
@@ -51,10 +51,11 @@ object WhatIsAux extends App {
 
   /** When you get `leastGen` to compile, apply it to `eg_people` */
   def ex_least = leastGen(eg_people)
+  println(s"ex_least: $ex_least")
 
 }
 
-
+/** Helper code to provide HList Ordering. No further exercises here */
 trait LowPriorityGenericOrdering {
   // An Ordering for any type which is isomorphic to an HList, if that HList has an Ordering
 
