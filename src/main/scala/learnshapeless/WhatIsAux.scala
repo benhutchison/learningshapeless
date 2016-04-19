@@ -37,7 +37,7 @@ object WhatIsAux extends App {
 
 
   /** Apply `headGen` to `eg_people` */
-  def ex_head = ???
+  def ex_head = headGen(eg_people)
 
 
   /** Enables Ordering over an HList if the element types have an Ordering
@@ -45,12 +45,12 @@ object WhatIsAux extends App {
   import GenericOrdering._
 
   /** Converts each element to generic form then returns the minimum according to the specified Ordering */
-  //def leastGen[T](ts: Seq[T])(implicit gen: Generic[T], o: Ordering[gen.Repr]): gen.Repr = ts.map(gen.to(_)).min
+  def leastGen[T, R](ts: Seq[T])(implicit gen: Generic.Aux[T, R], o: Ordering[R]): R = ts.map(gen.to(_)).min
 
   /** Exercise: Uncomment the above line. What happens? Can you use the info about Aux above to fix it?*/
 
   /** When you get `leastGen` to compile, apply it to `eg_people` */
-  def ex_least = ???
+  def ex_least = leastGen(eg_people)
 
 }
 
