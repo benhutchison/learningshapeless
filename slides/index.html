@@ -121,12 +121,38 @@
 
 				<section  data-markdown>
 					<script type="text/template">
+						###Why study type-level programming with Shapeless?
+
+						- Use Shapeless in your own applications
+						- Borrow techniques from shapeless in your own libraries
+						- Understand what type-level programming might enable
+
+					</script>
+				</section>
+
+				<section  data-markdown>
+					<script type="text/template">
 						###Whats Shapeless About?
 
-						The Shapeless library describes itself as "Generic programming for Scala", but what does that mean?
+						It describes itself as "Generic programming for Scala" - what does that mean?
 
-						It actually includes a diverse range of features, many fairly independent, so it's hard
-						to give a crisp definition. But lets look at two key ideas
+						It actually includes a diverse range of features. Lets look at two key features:
+					</script>
+				</section>
+
+				<section  data-markdown>
+					<script type="text/template">
+						###Tools for working with richly typed data
+
+						Shapeless provides a range of operations that are sensitive to, and preserve, rich type
+						information about the data
+
+						<pre><code>
+							val scientist = "Einstein" :: 1879 :: TheoryOfRelativity :: HNil
+							val name: String = scientist(0)
+							val yearBorn: Int = scientist(1)
+							val wontCompile = scientist(4)
+						</code></pre>
 					</script>
 				</section>
 
@@ -168,20 +194,6 @@
 					</script>
 				</section>
 
-				<section  data-markdown>
-					<script type="text/template">
-						###Tools for working with richly typed data
-
-						Shapeless provides a range of operations that are sensitive to, and preserve, rich type
-						information about the data
-
-						<pre><code>
-						val scientist = "Einstein" :: 1879 :: TheoryOfRelativity :: HNil
-						val name: String = scientist(0)
-						val wontCompile = scientist(4)
-						</code></pre>
-					</script>
-				</section>
 
 				<section  data-markdown>
 					<script type="text/template">
@@ -201,15 +213,20 @@
 
 				<section  data-markdown>
 					<script type="text/template">
-						###Example from Scala Collections
+						###Type-level programming in Scala Collections API
 
-						The `CanBuildFrom` typeclass used by the collections library is an example of
-						type-level programming.
+						The `map` method of Scala collections uses type-level computation to vary its static return type depending on context.
 
-						When transforming  a collection of type `Repr[Elem]`s to a target type `B`,
-						a `CanBuildFrom[Repr, B, That]` implicit parameter computes the result type `That`
+						<pre><code>
+							scala> val m = Map(("Ben",2))
+							m: scala.collection.immutable.Map[String,Int] = Map(Ben -> 2)
 
-						<pre><code>def map[B, That](f: Elem => B)(implicit bf: CanBuildFrom[Repr, B, That]): That</code></pre>
+							scala> m.map{case (k, v) => (k, v*2)}
+							res0: scala.collection.immutable.Map[String,Int] = Map(Ben -> 4)
+
+							scala> m.map{case (k, v) => v*2}
+							res1: scala.collection.immutable.Iterable[Int] = List(4)
+						</code></pre>
 					</script>
 				</section>
 
