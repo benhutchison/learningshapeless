@@ -4,6 +4,8 @@ import shapeless._
 import shapeless.tag.@@
 import shapeless.test.illTyped
 
+/** Tagged types allow existing types to be tagged with extra discriminators, while remaining unboxed
+  * instances of their original type as well. */
 object TaggedTypes extends App {
 
   case class EgWeaklyTypedPerson(id: String, name: String, age: Int, numberChildren: Int)
@@ -15,14 +17,17 @@ object TaggedTypes extends App {
   trait IdTag
   type Id = String @@ IdTag
 
+  /** Tag the string "KAT513436" as an Id */
+  def eg_id: Id = tag2("KAT513436").@@[IdTag]
+
+
+  /** Note we are using a custom tagging method `tag2` rather than the one in Shapeless. This is because the
+   `tag` operator provided by Shapeless doesn't work when the target def has an explicit type declared, ie: */
+  illTyped("""def eg_id1: Id = tag2[IdTag]("KAT513436")""")
 
   //illTyped is a macro provided by Shapeless. It "inverts" compile errors for the code contained within it, ie:
   //If the expression would normally compile correctly , within illTyped it's a compile error
   //If the expression within illTyped would not compile, then illTyped(<expr>) will compile OK
-  illTyped("""def eg_id1: Id = tag2[IdTag]("KAT513436")""")
-
-  //The `tag` operator provided by Shapeless doesn't work when the target def has an explicit type declared
-  def eg_id: Id = tag2("KAT513436").@@[IdTag]
 
   trait NameTag
   type Name = String @@ NameTag
