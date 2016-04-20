@@ -36,6 +36,9 @@ object Coproducts extends App {
 
   def eg_all_scientists = Vector(eg_florey, eg_gauss, eg_einstein, eg_hahn)
 
+  /** The Clue type models a clue to the identity of one of a scientist, as defined above.
+    *
+    * It is either a name, or a birth year, or a country */
   type Clue = Name :+: Born :+: Country :+: CNil
 
   def eg_clueCountry = Coproduct[Clue](australia)
@@ -60,7 +63,7 @@ object Coproducts extends App {
   println(s"ex_selectName $ex_selectName")
 
   /* drop two elements of  `eg_clueCountry` */
-  def ex_drop2: Country :+: CNil = ???
+  def ex_drop2: Option[Country :+: CNil] = ???
   println(s"ex_drop2 $ex_drop2")
 
 
@@ -75,8 +78,11 @@ object Coproducts extends App {
   /* Use `eg_isValidClue` to filter down to just invalid clues in `eg_allClues` */
   def eg_invalidClues = eg_allClues.map(_.map(eg_isValidClue))
 
-  /* Write your own Poly1 that determines if aa clue is "good". "Good" clues uniquely identify a scientist,
-   * whereas non-good clues are ambiguous. */
+  /* Write your own Poly1 that determines if aa clue is "good", based on example `eg_isValidClue`.
+
+  "Good" clues uniquely identify a scientist, whereas non-good clues are ambiguous. For example,
+  the Name "Florey" is good, whereas Country `Germany` is not, since multiple scientists share that country.
+  */
   def ex_isGoodClue = ???
   println(s"ex_isGoodClue $ex_isGoodClue")
 
