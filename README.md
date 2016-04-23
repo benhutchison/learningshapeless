@@ -16,6 +16,8 @@ cd learning-shapeless
 sbt   #leave sbt running between commands
 > update
 > run
+#optionally to dig deeper into shapeless:
+git clone https://github.com/milessabin/shapeless.git
 ```
 
 ### Exercise and Solution Branches 
