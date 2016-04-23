@@ -47,9 +47,9 @@ object Ch04_GenericRepresentation extends App {
     * 3. Uncomment and complete the assertion by filling the expected `head` value*/
   def eg_state: State = Victoria
 
-  def ex_genState = Generic[State]
+  def ex_genState = ???
 
-  def ex_genericState: Queensland.type :+: Victoria.type :+: CNil  = ex_genState.to(eg_state)
+  def ex_genericState  = ???
 
   //assertEquals(None, ex_genericState.head)
 
