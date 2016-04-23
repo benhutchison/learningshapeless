@@ -7,7 +7,7 @@ This repo contains a collections of [exercises](./src/main/scala) designed to he
 
 ###Workshop setup
 
-Assumes you have Java 8 and sbt pre-installed.
+Assumes you have Java 8 and [sbt](http://www.scala-sbt.org/) pre-installed.
 
 ```
 git clone https://github.com/benhutchison/learningshapeless.git
