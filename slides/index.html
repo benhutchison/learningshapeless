@@ -92,6 +92,7 @@
 
 						- Java 8
 						- sbt (Simple[sic] Build Tool)
+						- - Available via `brew` or `apt-get`
 						- Code editor of choice
 
 						<br/><br/>
@@ -99,6 +100,20 @@
 
 						- Scala familiarity
 						- Understanding of *implicit parameters* - later exercises only
+					</script>
+				</section>
+
+				<section  data-markdown>
+					<script type="text/template">
+						###Target Audience
+
+						This workshop will suit people who want to
+
+						- Use Shapeless library in their code
+
+						- Learn techniques the Shapeless library uses
+
+						- Better understand type-level programming
 					</script>
 				</section>
 
@@ -115,17 +130,6 @@
 							> update
 							> run
 						</code></pre>
-
-					</script>
-				</section>
-
-				<section  data-markdown>
-					<script type="text/template">
-						###Why study type-level programming with Shapeless?
-
-						- Use Shapeless in your own applications
-						- Borrow techniques from shapeless in your own libraries
-						- Understand what type-level programming might enable
 
 					</script>
 				</section>
@@ -160,46 +164,46 @@
 					<script type="text/template">
 						###Generic Representation of Data
 
-						<pre><code>case class Scientist(name: String, yearBorn: Int, discovery: Discovery)
-						sealed trait Discovery
-						object Calculus extends Discovery
-						object TheoryOfRelativity extends Discovery
-						</code></pre>
-
-						Shapeless provides a generic way represent many data structures in terms of two building blocks
-						- `HList` <=> case classes
-						- `Coproduct` <=> closed class hierarchies
-
-						Shapeless computes a complex type that describes the specific *shape*
-
-						`Scientist`<br/>
-						<= `LabelledGeneric[Scientist]` =><br/>
-						*Tree of HLists & Coproducts*
+						<img src="Generic.png"/>
 					</script>
 				</section>
 
 				<section  data-markdown>
 					<script type="text/template">
-						###Why Are Generic Representations Useful?
+						###What is Type-level Programming?
 
-						We can transform any data into a tree built of two simple structures, `HList` and `Coproduct`
+						In ordinary strongly typed programming, functions transform data from an input- to an output-
+						type. These types are relatively fixed or static for a given function.
 
-						We can fairly simply transform between `HList` and `Coproduct` and:
-						- JSON
-						- Database tables
-						- Binary Data
-						- Different class representations
-
-						An advanced exercise in the workshop is to do this for JSON serialization
+						<img src="RegularFunction.png"/>
 					</script>
 				</section>
 
+				<section  data-markdown>
+					<script type="text/template">
+						###What is Type-level Programming?
+
+						Type-level programming computes the output *type* of a function in terms of the input types.
+						It happens at compile-time; when compilation is over, type-level programs have terminated.
+
+						<img src="WithTypeLevelFunction.png"/>
+					</script>
+				</section>
 
 				<section  data-markdown>
 					<script type="text/template">
-						###Type-level Programming
+						###How do they affect runtime behavior?
 
-						Shapeless relies extensively on *type-level programming* techniques:
+						1. Enable stronger typing, encouraging correctness as with regular static types
+
+						2. Via type-class instances, operators that target a particular type. *Change the type, change the behavior*
+						<img src="Typeclass.png"/>
+					</script>
+				</section>
+
+				<section  data-markdown>
+					<script type="text/template">
+						###Type-level Programming Characteristics
 
 						- Flowing type information through functions to accurately preserve type information about
 						values as they are transformed by a program
@@ -240,7 +244,13 @@
 
 						- The ability to infer the values of type parameters based on implicit parameters
 
-						<pre><code>def map[B, That](f: Elem => B)(implicit bf: CanBuildFrom[Repr, B, That]): That</code></pre>
+						<pre><code>    /**  @tparam A    the element type of the collection
+							*    @tparam Repr the type of the actual collection containing the elements. */
+							trait TraversableLike[+A, +Repr] {
+
+							  def map[B, That](f: Elem => B)(implicit bf: CanBuildFrom[Repr, B, That]): That
+							}
+						</code></pre>
 					</script>
 				</section>
 
