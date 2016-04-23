@@ -2,7 +2,7 @@ package learnshapeless
 
 import shapeless._
 
-object WhatIsAux extends App {
+object Ch06_WhatIsAux extends App {
 
   /** Aux is a recurring design pattern in Shapeless code takes quite a while to get comfortable with.
     *

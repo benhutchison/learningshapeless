@@ -17,7 +17,7 @@ import record._
   * where the label is a singleton String or Symbol. This enables lossless 2-way transform of case classes into a generic form,
   * or a wire format like json.
   */
-object LabelsAndRecords extends App {
+object Ch07_LabelsAndRecords extends App {
 
   def eg_labelledInt = "meaningOfLife" ->> 42
 

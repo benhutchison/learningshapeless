@@ -6,7 +6,7 @@ import shapeless.test.illTyped
 
 /** Tagged types allow existing types to be tagged with extra discriminators, while remaining unboxed
   * instances of their original type as well. */
-object TaggedTypes extends App {
+object Ch02_TaggedTypes extends App {
 
   case class EgWeaklyTypedPerson(id: String, name: String, age: Int, numberChildren: Int)
 

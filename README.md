@@ -46,8 +46,8 @@ Be aware that for many exercises, getting them to `compile` can be a hard as get
  
 ###Techniques for Generic Programming
  
-- [Singleton Types](./src/main/scala/learnshapeless/SingletonTypes.scala)
 - [Generic](./src/main/scala/learnshapeless/Generic.scala)
+- [Singleton Types](./src/main/scala/learnshapeless/SingletonTypes.scala)
 - [What is Aux?](./src/main/scala/learnshapeless/WhatIsAux.scala)
 - [Labels & Records](./src/main/scala/learnshapeless/Labels.scala)
  

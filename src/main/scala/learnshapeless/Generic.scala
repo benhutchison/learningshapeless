@@ -1,12 +1,12 @@
 package learnshapeless
 
-import learnshapeless.Data._
+import Data._
 import shapeless._
 
 case class PersonDetails(firstName: String, surname: String)
 case class Asset(description: String, value: BigDecimal, categoryCode: String, verified: Boolean)
 
-object GenericRepresentation extends App {
+object Ch04_GenericRepresentation extends App {
 
   /** Generic provides a powerful set of macros that use compile-time reflection to convert between class hierachies
     * and a generic form based on HLists (aka "products") and Coproducts (aka "sums")

@@ -3,7 +3,7 @@ package learnshapeless
 import shapeless._
 import test.illTyped
 
-object LazyDemo extends App {
+object Ch09_LazyDemo extends App {
 
   val l: MyList[Int] = Cons(1, Nil)
 

@@ -15,7 +15,7 @@ import shapeless.tag.@@
   * subtype options are enumerated in the coproduct type..
   *
   * */
-object Coproducts extends App {
+object Ch03_Coproducts extends App {
 
   type Name = String @@ NameTag
   trait NameTag

@@ -2,7 +2,7 @@ package learnshapeless
 
 import shapeless.test.illTyped
 
-object TypeEquality extends App {
+object Ch11_TypeEquality extends App {
 
   /** A useful Shapeless utility is the illTyped("""<expression>""") macro, which fails at compile time
     * if `<expression>` compiles/type-checks, but succeeds otherwise.
