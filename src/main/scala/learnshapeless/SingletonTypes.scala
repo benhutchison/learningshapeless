@@ -10,24 +10,12 @@ import syntax.singleton._
 import scala.reflect.runtime.universe.TypeTag
 import Helper._
 
-/** General Guidelines
-  *
-  * Definitons named `eg` are examples to learn from. Examples are numbered by the exercises they related to or inform.
-  *
-  * Exercises beginning with `ex` are for you to complete. Each exercise has a comment above describing the task.
-  *
-  * You can verify whether your exercise solution is correct by running the associated test in src/test/scala.
-  *
-  * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
-  *
-  * */
-
 object SingletonTypes extends App {
 
   /** Singleton Types are types that describe a single value.
     *
     * What makes them useful is that, if you have the type, you
-    * can reconstruct the corresponding value, since there is exactly one such value.
+    * can recover the corresponding value using a Witness typeclass, since there is exactly one such value.
     *
     * You can think of them as allowing the lifting of Values into Types */
 
@@ -49,12 +37,6 @@ object SingletonTypes extends App {
 
   assertHaveEqualTypes(eg_42, eg_42_again)
 
-  assertHaveNonEqualTypes(eg_42, eg_42_isAnInt)
-
-  //note that eg_Witness42 is NOT available in implicit scope, ie its not an implicit val
-  def eg_summonValueFromExactSingletonType = implicitly[Witness.Aux[eg_Witness42.T]].value
-  assertEquals(42, eg_summonValueFromExactSingletonType)
-
   /** Singletons typing is available for the variety of literals in Scala */
   val eg_42_Double = 42.0.narrow
   val eg_Symbol = 'symbol.narrow
@@ -75,10 +57,6 @@ object SingletonTypes extends App {
 
   /** Witnesses */
 
-  /** We can't write a function that passes a singleton Type and summons its Value
-    * Have a go!? */
-  illTyped("""def valueOf[T <: Singleton] = implicitly[Witness.Aux[T]].value""")
-
   /** But instead we can thread the corresponding value around via the Witness typeclass
     *
     * A Witness is simply a type, any type, not just singletons, and one value of that type. */
@@ -98,12 +76,21 @@ object SingletonTypes extends App {
     *
     * It needs to be "computed" based on n and the lists type. To do that type level computation we need the type of n.
     * */
-  assertHaveNonEqualTypes(eg_hlst1(1), eg_hlst2(1))
+  println(s"eg_hlst1(1): ${eg_hlst1(1)}")
+  println(s" eg_hlst2(1): ${eg_hlst2(1)}")
+
+
+  /** Because singleton type contains complete information about the value it types, it is possible to reconstruct
+    * the value from the singleton type via a macro, as demonstrated below
+    *
+    * note that eg_Witness42 is NOT available in implicit scope, ie its not an implicit val
+    */
+  def eg_summonValueFromExactSingletonType = implicitly[Witness.Aux[eg_Witness42.T]].value
+  assertEquals(42, eg_summonValueFromExactSingletonType)
 
 
 }
 object Helper {
   def assertHaveEqualTypes[A, B](a: A, b: B)(implicit ev: A =:= B): Unit = ()
-  def assertHaveNonEqualTypes[A, B](a: A, b: B): Unit = illTyped("""assertHaveEqualTypes(a, b)""")
 
 }
