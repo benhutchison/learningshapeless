@@ -138,17 +138,6 @@
 
 				<section  data-markdown>
 					<script type="text/template">
-						###Why study type-level programming with Shapeless?
-
-						- Use Shapeless in your own applications
-						- Borrow techniques from shapeless in your own libraries
-						- Understand what type-level programming might enable
-
-					</script>
-				</section>
-
-				<section  data-markdown>
-					<script type="text/template">
 						###Whats Shapeless About?
 
 						It describes itself as "Generic programming for Scala" - what does that mean?
@@ -162,22 +151,6 @@
 						###Tools for working with richly typed data
 
 						Shapeless provides a range of operations that are sensitive to, and preserve, rich type
-						information about the data
-
-						<pre><code>
-							val scientist = "Einstein" :: 1879 :: TheoryOfRelativity :: HNil
-							val name: String = scientist(0)
-							val yearBorn: Int = scientist(1)
-							val wontCompile = scientist(4)
-						</code></pre>
-					</script>
-				</section>
-
-				<section  data-markdown>
-					<script type="text/template">
-						###Tools for working with richly typed data
-
-						Shapepless provides a range of operations that are sensitive to, and preserve, rich type
 						information about the data
 
 						<pre><code>
