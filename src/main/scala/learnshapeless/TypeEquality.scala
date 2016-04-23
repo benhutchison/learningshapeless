@@ -2,16 +2,7 @@ package learnshapeless
 
 import shapeless.test.illTyped
 
-/** General Guidelines
-  *
-  * Definitons named `eg` are examples to learn from. Examples are numbered by the exercises they related to or inform.
-  *
-  * Exercises beginning with `ex` are for you to complete. Each exercise has a comment above describing the task.
-  *
-  * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
-  *
-  * */
-object TypeEquality extends App {
+object Ch11_TypeEquality extends App {
 
   /** A useful Shapeless utility is the illTyped("""<expression>""") macro, which fails at compile time
     * if `<expression>` compiles/type-checks, but succeeds otherwise.

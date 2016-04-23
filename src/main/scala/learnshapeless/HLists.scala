@@ -19,7 +19,7 @@ import learnshapeless.Data._
   *
   * */
 
-object HLists extends App {
+object Ch01_HLists extends App {
 
   /* Example 1: An HList consisting of "Einstein", the Int value 1879 and the Country Germany */
   def eg1_einstein: String :: Int :: Country :: HNil = "Einstein" :: 1879 :: Germany :: HNil

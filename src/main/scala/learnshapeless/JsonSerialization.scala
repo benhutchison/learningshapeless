@@ -21,7 +21,7 @@ import syntax.singleton._
 
 import spray.json._
 
-object JsonSerialization extends App {
+object Ch10_JsonSerialization extends App {
 
   implicit val s: JsonFormat[String] = new JsonFormat[String] {
     def write(s: String): JsValue = new JsString(s)

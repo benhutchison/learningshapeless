@@ -4,7 +4,8 @@ import shapeless._
 import shapeless.ops.hlist.{Take, Drop}
 import shapeless.test.illTyped
 
-object Induction extends App {
+/** This exercise explores the inductive technique that many shapeless operators use. */
+object Ch08_Induction extends App {
 
   val list = 123 :: "one two three" :: false :: HNil
 

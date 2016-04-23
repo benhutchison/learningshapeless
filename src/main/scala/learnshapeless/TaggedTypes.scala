@@ -4,16 +4,9 @@ import shapeless._
 import shapeless.tag.@@
 import shapeless.test.illTyped
 
-/** General Guidelines
-  *
-  * Definitons named `eg` are examples to learn from. Examples are numbered by the exercises they related to or inform.
-  *
-  * Exercises beginning with `ex` are for you to complete. Each exercise has a comment above describing the task.
-  *
-  * Note: the file is runnable, so you can drop in println statements to look at the values of expressions
-  *
-  * */
-object TaggedTypes extends App {
+/** Tagged types allow existing types to be tagged with extra discriminators, while remaining unboxed
+  * instances of their original type as well. */
+object Ch02_TaggedTypes extends App {
 
   case class EgWeaklyTypedPerson(id: String, name: String, age: Int, numberChildren: Int)
 

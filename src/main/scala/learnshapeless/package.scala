@@ -1,6 +1,5 @@
 import shapeless.tag
 import shapeless.tag.@@
-import shapeless.test.illTyped
 
 package object learnshapeless {
 
