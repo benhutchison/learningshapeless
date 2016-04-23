@@ -6,6 +6,9 @@ object WhatIsAux extends App {
 
   /** Aux is a recurring design pattern in Shapeless code takes quite a while to get comfortable with.
     *
+    * It works around current limitations in the compiler; there's hope that one day it will become obselete, more info
+    * [https://github.com/scala/scala/pull/5108]
+    *
     * This section aims to give you some understanding of the role its playing */
 
   /** First, observe that MyType.Aux is just a type alias for MyType, with an internal type member converted to a type parameter. */
