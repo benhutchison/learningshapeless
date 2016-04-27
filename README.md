@@ -56,6 +56,7 @@ Be aware that for many exercises, getting them to `compile` can be a hard as get
 ###Advanced
 
 - [Induction](./src/main/scala/learnshapeless/Induction.scala)
+- [Lazy](./src/main/scala/learnshapeless/Lazy.scala)
 - [A complete use-case: Json Serialization](./src/main/scala/learnshapeless/JsonSerialization.scala)
 
 ###Other
