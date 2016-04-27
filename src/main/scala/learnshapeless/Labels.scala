@@ -1,7 +1,5 @@
 package learnshapeless
 
-import java.time.{Month, LocalDate}
-
 import shapeless._
 import shapeless.test.illTyped
 import syntax.singleton._
@@ -19,7 +17,7 @@ import record._
   */
 object Ch07_LabelsAndRecords extends App {
 
-  def eg_labelledInt = "meaningOfLife" ->> 42
+  def eg_labelledInt = "birthYear" ->> 1879
 
   /** Use test.showType() to get the type of above */
   def ex_typeOfLabelledInt: String = ???
@@ -35,7 +33,7 @@ object Ch07_LabelsAndRecords extends App {
     * But any string can be represented as a symbol, using the Symbol("a string") factory
     *
     * */
-  def eg_symbolLabelledInt = 'meaningOfLife ->> 42
+  def eg_symbolLabelledInt = 'birthYear ->> 42
 
   println(s"Type of eg_labelledInt: ${test.showType(eg_symbolLabelledInt)}")
 
@@ -43,13 +41,13 @@ object Ch07_LabelsAndRecords extends App {
   /** Special type-indexed accessors are enabled when labelled values are collected in an HList */
   def eg_randomStuff =
     eg_labelledInt ::
-      ('moonLanding  ->> LocalDate.of(1969, Month.JULY, 20)) ::
-      ('PiDigits     ->>  3.14159265359) ::
+      ('birthYear  ->> 1542) ::
+      ('name     ->>  "Newton") ::
       HNil
 
-  def eg_moonLanding: LocalDate = eg_randomStuff('moonLanding)
+  def eg_birthYear: Int = eg_randomStuff('birthYear)
 
-  def ex_pi: Double = ???
+  def ex_name: String = ???
 
 
   /** Use the keys and values methods */
@@ -60,16 +58,15 @@ object Ch07_LabelsAndRecords extends App {
 
   println(s"keys: $ex_randomStuffKeys   values: $ex_randomStuffValues")
 
-  /** Dont trust the NSA man! The moon landing was actually faked in a TV studio 2 weeks earlier.
-    * Use +(Key-Value) to redefine the moon landing date to July 4 1969 in eg_randomStuff. */
-  def ex_randomStuffForRealz = ???
+    /** Use +(Key-Value) to correct the birthYear to 1642 in eg_randomStuff. */
+  def ex_fixBirthYear = ???
 
-  /** Actually, there was no moon landing. Its a synthetic memory implanted when little green men escaped from Roswell
-    * Remove the moon landing entry with -(Key) */
-  def ex_reallyRandomStuff = ???
+  /** Actually, birthYear is no longer relevant
+    * Remove the birthYear entry with -(Key) */
+  def ex_noBirthYear = ???
 
-  /** Ensure that its a compile error to access the now non-existent moon landing entry */
-  illTyped("""ex_reallyRandomStuff.<your code here>""")
+  /** Ensure that its a compile error to access the now non-existent birthYear entry */
+  illTyped("""ex_noBirthYear.<your code here>""")
 
 
   /** Lets move onto LabelledGeneric, a macro powered typeclass for conversion between cases classes and records */
@@ -85,14 +82,13 @@ object Ch07_LabelsAndRecords extends App {
   def ex_genericEinstein = ???
   println(s"ex_genericEinstein: $ex_genericEinstein")
 
-  /** Oops, that birth year is wrong. Fix it using +(KV) to update ex_genericEinstein with the correct value 1879.
+  /** Oops, that birth year is wrong too. Fix it using +(KV) to update ex_genericEinstein with the correct value 1879.
     *
     * Note Shapeless uses Symbols, not Strings, to label case class fields in LabelledGeneric form. */
   def ex_fixError = ???
 
-  /** Use from the convert back from generic representation to case class */
+  /** Use `from` method to convert `ex_fixError` to back to a case class */
   def ex_reconstructedEinstein = ???
-
 
 
 }
