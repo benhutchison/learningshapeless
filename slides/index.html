@@ -248,7 +248,7 @@
 							*    @tparam Repr the type of the actual collection containing the elements. */
 							trait TraversableLike[+A, +Repr] {
 
-							  def map[B, That](f: Elem => B)(implicit bf: CanBuildFrom[Repr, B, That]): That
+							  def map[B, That](f: A => B)(implicit bf: CanBuildFrom[Repr, B, That]): That
 							}
 						</code></pre>
 					</script>
