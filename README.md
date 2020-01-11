@@ -1,11 +1,11 @@
-#Learning Shapeless: Workshop Exercises
+# Learning Shapeless: Workshop Exercises
 
 This repo contains a collections of [exercises](./src/main/scala) designed to help you learn the 
 [Shapeless library](https://github.com/milessabin/shapeless) and Type-level programming. 
 
 [Introductory slides](http://benhutchison.github.io/learningshapeless/slides/#/).
 
-###Workshop setup
+### Workshop setup
 
 Assumes you have Java 8 and [sbt](http://www.scala-sbt.org/) pre-installed.
 
@@ -30,7 +30,7 @@ Study the examples before trying the exercises, they demonstrate  features of Sh
 The `solutions` branch contains solutions and/or explanations for all exercises. You can use this either to check your work 
 after having attempted an exercise, or as a learning aid, if you're not able to progress.
  
-###Experiment!
+### Experiment!
  
 All exercises are runnable using SBTs `run` task. `println`s are sprinkled in so you can view expressions.
 Alternately you can use SBTs `console` task to start a REPL with the projects' classes
@@ -38,28 +38,28 @@ Alternately you can use SBTs `console` task to start a REPL with the projects' c
  
 Be aware that for many exercises, getting them to `compile` can be a hard as getting them to run. 
  
-##Suggested Order of Exercises
+## Suggested Order of Exercises
  
-###Foundations
+### Foundations
  
 - [HLists](./src/main/scala/learnshapeless/HLists.scala)
 - [Tagged Types](./src/main/scala/learnshapeless/TaggedTypes.scala)
 - [Coproduct](./src/main/scala/learnshapeless/Coproduct.scala)
  
-###Techniques for Generic Programming
+### Techniques for Generic Programming
  
 - [Generic](./src/main/scala/learnshapeless/Generic.scala)
 - [Singleton Types](./src/main/scala/learnshapeless/SingletonTypes.scala)
 - [What is Aux?](./src/main/scala/learnshapeless/WhatIsAux.scala)
 - [Labels & Records](./src/main/scala/learnshapeless/Labels.scala)
  
-###Advanced
+### Advanced
 
 - [Induction](./src/main/scala/learnshapeless/Induction.scala)
 - [Lazy](./src/main/scala/learnshapeless/Lazy.scala)
 - [A complete use-case: Json Serialization](./src/main/scala/learnshapeless/JsonSerialization.scala)
 
-###Other
+### Other
 
 - [Type Equality](./src/main/scala/learnshapeless/TypeEquality.scala)
 
